@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - CampusFind</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .student-header {
+            background: #101d3a;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-header h2 { margin: 0; }
+        .student-content { max-width: 1100px; margin: 45px auto; padding: 20px; }
+        .welcome-card {
+            background: #eaf1ff;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+        .student-actions { display: flex; gap: 15px; flex-wrap: wrap; }
+        .student-actions a {
+            background: #2463eb;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 9px;
+            text-decoration: none;
+        }
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: 0;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header class="student-header">
+    <div style="display:flex; align-items:center; gap:15px;">
+        <img src="ukf-logo.png" alt="UKF College Logo"
+             style="width:65px; height:65px; object-fit:contain; background:white; border-radius:10px; padding:5px;">
+
+        <div>
+            <h2>UKF College of Engineering</h2>
+            <p style="margin:5px 0; font-size:13px;">
+                Mylavila, Paripally, Kollam, Kerala
+            </p>
+            <strong>CampusFind | Student Portal</strong>
+        </div>
+    </div>
+
+    <button class="logout-btn" id="logout-btn">Logout</button>
+</header>
+<main class="student-content">
+    <section class="welcome-card">
+        <h1>Welcome to CampusFind!</h1>
+        <p>Use this dashboard to report lost belongings and find items reported around your campus.</p>
+    </section>
+
+    <section class="student-actions">
+        <a href="index.html">Browse Reports</a>
+        <a href="index.html#report">Report Lost / Found Item</a>
+    </section>
+</main>
+
+<script>
+const API = "cgi-bin/lostfound.cgi";
+
+document.getElementById("logout-btn").addEventListener("click", async () => {
+    const data = new URLSearchParams();
+    data.append("action", "admin_logout");
+
+    try {
+        const response = await fetch(API, {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: data.toString(),
+            credentials: "same-origin"
+        });
+
+        if (!response.ok) throw new Error("Logout failed.");
+
+        window.location.href = "login.html";
+    } catch (error) {
+        alert(error.message);
+    }
+});
+</script>
+
+</body>
+</html>

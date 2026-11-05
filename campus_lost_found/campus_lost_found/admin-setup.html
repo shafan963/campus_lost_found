@@ -1,0 +1,116 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusFind - Admin Setup</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f3f6fb;
+}
+.container {
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px #00000012;
+}
+h1 { text-align: center; color: #172b4d; }
+h1 span { color: #3984e8; }
+p { text-align: center; color: #718096; }
+label { display: block; margin: 16px 0 7px; }
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #dce3ed;
+    border-radius: 8px;
+}
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 24px;
+    border: 0;
+    border-radius: 8px;
+    background: #3984e8;
+    color: white;
+    cursor: pointer;
+}
+#message { color: #c0392b; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Campus<span>Find</span></h1>
+    <h2>Initial Admin Setup</h2>
+    <p>Create the first administrator account.</p>
+
+    <form id="setup-form">
+        <label>Admin Username</label>
+        <input name="username" required minlength="4"
+               placeholder="Create username">
+
+        <label>Password</label>
+        <input type="password" name="password" required minlength="12"
+               placeholder="At least 12 characters">
+
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" required
+               placeholder="Enter password again">
+
+        <button type="submit">Create Admin Account</button>
+    </form>
+
+    <p id="message"></p>
+</div>
+
+<script>
+document.getElementById("setup-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const message = document.getElementById("message");
+    const data = new URLSearchParams(new FormData(form));
+
+    if (data.get("password") !== data.get("confirm_password")) {
+        message.textContent = "Passwords do not match.";
+        return;
+    }
+
+    data.append("action", "setup_admin");
+    message.textContent = "Creating admin account...";
+
+    try {
+        const response = await fetch("cgi-bin/lostfound.cgi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: data.toString()
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.error || "Admin setup failed.");
+        }
+
+        message.textContent = "Admin account created successfully!";
+        form.reset();
+
+    } catch (error) {
+        message.textContent = error.message;
+    }
+});
+</script>
+</body>
+</html>
+```

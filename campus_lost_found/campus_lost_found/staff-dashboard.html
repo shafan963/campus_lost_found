@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - CampusFind</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .staff-header {
+            background: #101d3a;
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .college-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .college-info img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            background: white;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .college-info h2 { margin: 0; }
+        .college-info p { margin: 5px 0; font-size: 13px; }
+
+        .staff-content {
+            max-width: 1100px;
+            margin: 45px auto;
+            padding: 20px;
+        }
+
+        .welcome-card {
+            background: #eaf1ff;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+
+        .staff-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .staff-actions a {
+            background: #2463eb;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 9px;
+            text-decoration: none;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: 0;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="staff-header">
+    <div class="college-info">
+        <img src="ukf-logo.png" alt="UKF College Logo">
+
+        <div>
+            <h2>UKF College of Engineering</h2>
+            <p>Mylavila, Paripally, Kollam, Kerala</p>
+            <strong>CampusFind | Staff Portal</strong>
+        </div>
+    </div>
+
+    <button class="logout-btn" id="logout-btn">Logout</button>
+</header>
+
+<main class="staff-content">
+    <section class="welcome-card">
+        <h1>Welcome to CampusFind!</h1>
+        <p>
+            Use this portal to report lost and found belongings
+            and help students and staff recover their items.
+        </p>
+    </section>
+
+    <section class="staff-actions">
+        <a href="index.html">Browse Reports</a>
+        <a href="index.html#report">Report Lost / Found Item</a>
+    </section>
+</main>
+
+<script>
+document.getElementById("logout-btn").addEventListener("click", () => {
+    alert("Secure staff logout will be enabled after the backend logout update.");
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+Lost|id card|Keys & Cards|2026-11-03|library|id card|Achu |1234567890
+Lost|Test Laptop|Electronics|2026-11-05|Library|Blue case|Demo User|9999999999
+Lost|book|Books & Notes|2026-11-05|library|record|KESHU|qwerrtt@hmail.com

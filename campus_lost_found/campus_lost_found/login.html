@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusFind - Login</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #071b3b, #1455a0, #3984e8);
+}
+
+.login-box {
+    width: 100%;
+    max-width: 440px;
+    padding: 35px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 20px 60px #00112e55;
+}
+
+.college-header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.college-header img {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+.college-header h2 {
+    margin: 5px 0;
+    font-size: 17px;
+    color: #102b50;
+}
+
+.college-header p {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #718096;
+}
+
+h1 {
+    margin: 10px 0 5px;
+    text-align: center;
+    font-size: 34px;
+    color: #102b50;
+}
+
+h1 span {
+    color: #3984e8;
+}
+
+.subtitle {
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.tabs {
+    display: flex;
+    gap: 7px;
+    padding: 5px;
+    background: #edf3fb;
+    border-radius: 12px;
+    margin: 22px 0;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 12px 5px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #52647c;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tabs button.active {
+    background: #246ed1;
+    color: white;
+    box-shadow: 0 4px 12px #246ed144;
+}
+
+.login-box form {
+    display: none;
+}
+
+.login-box form.active {
+    display: block;
+}
+
+form h3 {
+    color: #102b50;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+label {
+    display: block;
+    margin: 15px 0 7px;
+    color: #34445c;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dce4ef;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    background: #f9fbfe;
+}
+
+input:focus {
+    border-color: #3984e8;
+    box-shadow: 0 0 0 3px #3984e81a;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #246ed1, #3984e8);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    opacity: 0.92;
+}
+
+.message {
+    min-height: 20px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #c0392b;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #8794a8;
+    font-size: 11px;
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        padding: 25px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <div class="college-header">
+        <img src="ukf-logo.png" alt="UKF College Logo">
+        <h2>UKF COLLEGE OF ENGINEERING</h2>
+        <p>Mylavila, Paripally, Kollam, Kerala</p>
+    </div>
+
+    <h1>Campus<span>Find</span></h1>
+    <p class="subtitle">College Lost & Found Portal</p>
+
+    <div class="tabs">
+        <button class="active" onclick="showLogin('student',this)">Student</button>
+        <button onclick="showLogin('staff',this)">Staff</button>
+        <button onclick="showLogin('admin',this)">Admin</button>
+    </div>
+
+    <form id="student" class="active">
+        <h3>Student Login</h3>
+
+        <label>Admission Number</label>
+        <input name="admission" required placeholder="Enter admission number">
+
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="Enter password">
+
+        <button class="login-btn" type="submit">Login as Student →</button>
+    </form>
+
+    <form id="staff">
+        <h3>Staff Login</h3>
+
+        <label>Email ID</label>
+        <input type="email" name="email" required placeholder="Enter staff email">
+
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="Enter password">
+
+        <button class="login-btn" type="submit">Login as Staff →</button>
+    </form>
+
+    <form id="admin">
+        <h3>Admin Login</h3>
+
+        <label>Admin Username</label>
+        <input name="username" required placeholder="Enter username">
+
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="Enter password">
+
+        <button class="login-btn" type="submit">Login as Admin →</button>
+    </form>
+
+    <p class="message" id="message"></p>
+
+    <div class="login-footer">
+        Restricted access · UKF College Community
+    </div>
+
+</div>
+
+<script>
+function showLogin(role, button) {
+    document.querySelectorAll(".login-box form").forEach(form => {
+        form.classList.remove("active");
+    });
+
+    const selectedForm = document.getElementById(role);
+
+    if (selectedForm) {
+        selectedForm.classList.add("active");
+    }
+
+    document.querySelectorAll(".tabs button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    document.getElementById("message").textContent = "";
+}
+
+document.getElementById("admin").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const message = document.getElementById("message");
+    const data = new URLSearchParams(new FormData(form));
+
+    data.append("action", "admin_login");
+    message.textContent = "Checking login...";
+
+    try {
+        const response = await fetch("cgi-bin/lostfound.cgi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: data.toString(),
+            credentials: "same-origin"
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.error || "Login failed.");
+        }
+
+        message.style.color = "green";
+        message.textContent = "Admin login successful!";
+
+        window.location.href = "admin-dashboard.html";
+
+    } catch (error) {
+        message.style.color = "#c0392b";
+        message.textContent = error.message;
+    }
+});
+
+document.querySelectorAll("#student, #staff").forEach(form => {
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const message = document.getElementById("message");
+        const data = new URLSearchParams(new FormData(form));
+
+        const action = form.id === "student"
+            ? "student_login"
+            : "staff_login";
+
+        data.append("action", action);
+        message.style.color = "#3984e8";
+        message.textContent = "Checking login...";
+
+        try {
+            const response = await fetch("cgi-bin/lostfound.cgi", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: data.toString(),
+                credentials: "same-origin"
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "Login failed.");
+            }
+
+            message.style.color = "green";
+            message.textContent = "Login successful!";
+
+            window.location.href = form.id === "student"
+                ? "student-dashboard.html"
+                : "staff-dashboard.html";
+
+        } catch (error) {
+            message.style.color = "#c0392b";
+            message.textContent = error.message;
+        }
+    });
+});
+</script>
+
+</body>
+</html>
